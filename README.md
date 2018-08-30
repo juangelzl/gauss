@@ -1,1 +1,1 @@
-# gauss
+# gauss-seidel
