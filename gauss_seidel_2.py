@@ -1,5 +1,5 @@
 a = [ [3, -0.1, -0.2, 7.85], [0.1, 7, -0.3, -19.3], [0.3, -0.2, 10, 71.4]]
-#a = [ [1, 4, 2, 2], [1, 2, 4, 0], [4, 1, 2, 0]]
+#a = [ [1, 4, 2, 2], [1, 2, 4, 5], [4, 1, 2, 1]]
 #a = [ [1, 2, 4, 0], [4, 1, 2, 0], [1, 4, 2, 2]]
 #a = [ [1, 2, 4, 0, 1], [1, 0, 2, 4, 5], [2, 4, 0, 1, 3], [4, 1, 0, 2, 3]]
 #a = [ [1, 2, 5, 0, 1, 0], [2, 5, 0, 1, 1, 0], [1, 0, 2, 5, 1, 0], [5, 1, 0, 2, 1, 0], [1, 1, 0, 2, 5, 0]]
@@ -9,9 +9,11 @@ a = [ [3, -0.1, -0.2, 7.85], [0.1, 7, -0.3, -19.3], [0.3, -0.2, 10, 71.4]]
 per = 2
 suma = []
 r = []
+r2 = []
 for n in a:
 	suma.append(0)
 	r.append(0)
+	r2.append(0)
 # def imprimirMatriz():
 # 	for n in a:
 # 		print(n)
@@ -82,22 +84,42 @@ imprimirMatriz()
 acomodar()
 
 imprimirMatriz()
+errorM = 100
+while errorM > per:
+	r2 = list(r)
 
-for i in range(len(a)):
-	print('\n\nResultados\n', r)
-	for k in range(len(a)):
-		s = 0
+	for i in range(len(a)):
+		print('\n\nResultados\n', r)
+		# for k in range(len(a)):
+		s = 0	# s = 0
 		for j in range(len(a)):
+
 			if j != i:
 				print('a[',i,'][',j,  '] * ',  'r[',j,']')
 				print(a[i][j],  ' * ',  r[j])
 				s = s + a[i][j] * r[j]
 				# print(a[j][i],  ' * ',  r[i])
 				# s = s + a[j][i] * r[i]
-		if i == k:
-			r[i] = (a[i][len(a)] - s)/a[i][k]
-			print('(',a[i][len(a)], ' - ', s,') / ', a[i][k], ' = ', r[i])
-			
+		print(' j = ', j)
+		for j in range(len(a)):
+			if i == j:
+				r[i] = (a[i][len(a)] - s)/a[i][j]
+				print('(',a[i][len(a)], ' - ', s,') / ', a[i][j], ' = ', r[i])
+				break
+
+	print('x anteriores :', r2)
+	print('x actuales :', r)
+	errorM = 0
+	for i in range(len(a)):
+		error = abs(((r[i] - r2[i]) / r[i])) * 100
+		print('\n\nError: (((',r[i], ' - ', r2[i], ') / ', r[i],')) * 100 = ', error,' \n\n')
+
+		if errorM < error:
+			errorM = error
+		print('\n\nError Mayor :',errorM,' \n\n')
+
+
+
 
 #print( 'x[i]  = ( ' ,n[len(n)-1], ' - ', n[len(n)-3], ' * ',  x[i+1], ' - ', n[len(n)-2], ' * ', x[i+2], ' )  / ',  n[i], ' )')
 #x[i] = (n[len(n)-1] - n[len(n)-3] * x[i+1] - n[len(n)-2] * x[i+2]) / n[i]
